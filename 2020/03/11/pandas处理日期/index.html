@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Gongjunchi&#39;s blog</title>
+  <title>pandas处理日期 | Gongjunchi&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Gongjunchi&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="Pandas库是处理时间序列的利器，可以按日期筛选数据、按日期显示数据、按日期统计数据 实际类型主要有：timestamp(时间戳)、period(时期)、timedelta(时间间隔)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas处理日期">
+<meta property="og:url" content="http://yoursite.com/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/index.html">
 <meta property="og:site_name" content="Gongjunchi&#39;s blog">
+<meta property="og:description" content="Pandas库是处理时间序列的利器，可以按日期筛选数据、按日期显示数据、按日期统计数据 实际类型主要有：timestamp(时间戳)、period(时期)、timedelta(时间间隔)">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/timepic.PNG">
+<meta property="article:published_time" content="2020-03-11T06:55:28.000Z">
+<meta property="article:modified_time" content="2020-03-11T07:34:20.272Z">
 <meta property="article:author" content="Gongjunchi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/timepic.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Gongjunchi&#39;s blog" type="application/atom+xml">
   
@@ -150,211 +156,165 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-pandas处理日期" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      pandas处理日期
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/" class="archive-article-date">
+
+        
+        <a href="/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/" class="archive-article-date">
   	<time datetime="2020-03-11T06:55:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/">pandas处理日期</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>Pandas库是处理时间序列的利器，可以按日期筛选数据、按日期显示数据、按日期统计数据</li>
+<li>实际类型主要有：timestamp(时间戳)、period(时期)、timedelta(时间间隔)<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
-          
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment">#获取当前时间</span></span><br><span class="line">now = pd.datetime.now()</span><br><span class="line"><span class="comment">#&lt;class 'datetime.datetime'&gt;</span></span><br><span class="line">print(now)</span><br><span class="line"><span class="comment">#2020-03-11 15:08:39.031719</span></span><br><span class="line">print(now.strftime(<span class="string">'%Y-%m-%d'</span>))</span><br><span class="line"><span class="comment">#2020-03-11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#计算当前时间往后100天的日期</span></span><br><span class="line">after = now + pd.Timedelta(days=<span class="number">100</span>)</span><br><span class="line">print(after)</span><br><span class="line"><span class="comment">#2020-06-19 15:12:19.035343</span></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment">#画以时间为x轴的图，pandas的DataFrame自动将index列作为x轴</span></span><br><span class="line">np.random.seed(<span class="number">2</span>)</span><br><span class="line"><span class="comment">#生成日期序列</span></span><br><span class="line">x = pd.date_range(<span class="string">'2019/01/01'</span>,<span class="string">'2019/12/31'</span>,freq=<span class="string">'d'</span>)<span class="comment">#pandas.core.indexes.datetimes.DatetimeIndex</span></span><br><span class="line"><span class="comment">#y轴为标准正态分布时间序列</span></span><br><span class="line">y = np.random.standard_normal(len(x))<span class="comment">#numpy.ndarray</span></span><br><span class="line"><span class="comment">#转成DataFrame</span></span><br><span class="line">df = pd.DataFrame(y,columns=[<span class="string">'normal'</span>],index=x)</span><br><span class="line">df.plot(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/timepic.PNG" alt="time_picture"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/05/matplotlib%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-05T07:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/05/matplotlib%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">matplotlib笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/matplotlib%E7%AC%94%E8%AE%B0/">matplotlib笔记</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/python%E9%9A%8F%E6%9C%BA%E6%95%B0/" class="archive-article-date">
-  	<time datetime="2020-03-03T03:42:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/python%E9%9A%8F%E6%9C%BA%E6%95%B0/">python随机数</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/01/%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%B0%E5%80%BC%E6%8C%87%E6%A0%87/" class="archive-article-date">
-  	<time datetime="2020-03-01T02:44:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/01/%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%B0%E5%80%BC%E6%8C%87%E6%A0%87/">常见的估值指标</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/01/Tushare%E8%8E%B7%E5%8F%96%E6%97%A5%E7%BA%BF%E8%A1%8C%E6%83%85/" class="archive-article-date">
-  	<time datetime="2020-03-01T02:42:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/01/Tushare%E8%8E%B7%E5%8F%96%E6%97%A5%E7%BA%BF%E8%A1%8C%E6%83%85/">Tushare获取日线行情</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/" class="archive-article-date">
-  	<time datetime="2020-03-01T02:40:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/">k线图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/01/hello-world/" class="archive-article-date">
-  	<time datetime="2020-03-01T01:49:53.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -377,8 +337,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
