@@ -15,15 +15,18 @@
 <meta property="og:site_name" content="Gongjunchi&#39;s blog">
 <meta property="og:description" content="Matplotlib库由各种可视化类构成，内部结构复杂，常用的matplotlib.pyplot是绘制各类可视化图形的命令字库，相当于快捷方式">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/plot.PNG">
 <meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/color.PNG">
 <meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/style.PNG">
 <meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/format.PNG">
 <meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/markevery.PNG">
+<meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/rcParams.PNG">
+<meta property="og:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/%E5%AD%97%E4%BD%93%E7%A7%8D%E7%B1%BB.PNG">
 <meta property="article:published_time" content="2020-03-05T07:29:59.000Z">
-<meta property="article:modified_time" content="2020-03-05T09:36:51.278Z">
+<meta property="article:modified_time" content="2020-03-17T09:24:08.936Z">
 <meta property="article:author" content="Gongjunchi">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/color.PNG">
+<meta name="twitter:image" content="https://mybloghexo.oss-cn-beijing.aliyuncs.com/plot.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Gongjunchi&#39;s blog" type="application/atom+xml">
   
@@ -182,23 +185,16 @@
         <p>Matplotlib库由各种可视化类构成，内部结构复杂，常用的matplotlib.pyplot是绘制各类可视化图形的命令字库，相当于快捷方式</p>
 <a id="more"></a>
 
-<ol>
-<li><p>plot()只含一个参数，默认当成Y轴，X轴以索引自动生成</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>plot()有两个以上参数，按照X轴、Y轴顺序画图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],[<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>])</span><br><span class="line"><span class="comment">#plt.axis()依次设置x轴，y轴坐标范围</span></span><br><span class="line">plt.axis([<span class="number">-1</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">6</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关于绘图区域</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#plot_number是当前绘图区域</span></span><br><span class="line">plt.subplot(nrows,ncols,plot_number)</span><br></pre></td></tr></table></figure></li>
-<li><p>plt.plot(x,y,format_string,**kwargs)</p>
-</li>
-</ol>
-<ul>
-<li>x：X轴数据，列表或数组，可选但绘制多条曲线时不能省略</li>
+<h5 id="1-plot-只含一个参数，默认当成Y轴，X轴以索引自动生成"><a href="#1-plot-只含一个参数，默认当成Y轴，X轴以索引自动生成" class="headerlink" title="1. plot()只含一个参数，默认当成Y轴，X轴以索引自动生成"></a>1. plot()只含一个参数，默认当成Y轴，X轴以索引自动生成</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/plot.PNG" alt="plot只有一个参数"></p>
+<h5 id="2-plot-有两个以上参数，按照X轴、Y轴顺序画图"><a href="#2-plot-有两个以上参数，按照X轴、Y轴顺序画图" class="headerlink" title="2. plot()有两个以上参数，按照X轴、Y轴顺序画图"></a>2. plot()有两个以上参数，按照X轴、Y轴顺序画图</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],[<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>])</span><br><span class="line"><span class="comment">#plt.axis()依次设置x轴，y轴坐标范围</span></span><br><span class="line">plt.axis([<span class="number">-1</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">6</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-关于绘图区域"><a href="#3-关于绘图区域" class="headerlink" title="3. 关于绘图区域"></a>3. 关于绘图区域</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#plot_number是当前绘图区域</span></span><br><span class="line">plt.subplot(nrows,ncols,plot_number)</span><br></pre></td></tr></table></figure>
+<h5 id="4-plt-plot-x-y-format-string-kwargs"><a href="#4-plt-plot-x-y-format-string-kwargs" class="headerlink" title="4. plt.plot(x,y,format_string,**kwargs)"></a>4. plt.plot(x,y,format_string,**kwargs)</h5><ul>
+<li>x：X轴数据，列表/数组/series，可选但绘制多条曲线时不能省略</li>
 <li>y：Y轴数据，列表或数组</li>
 <li>format_string：字符串，控制<strong>曲线格式</strong>，包括颜色、风格、标记，可以组合使用<br><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/color.PNG" alt="color"><br><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/style.PNG" alt="style"><br><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/format.PNG" alt="format"></li>
-<li>*<em>kwargs：第二组或更多(x,y,format_string)，可以用这个来控制*</em>标记的格式**，跟曲线可以不同颜色<ul>
+<li>**kwargs：第二组或更多(x,y,format_string)，可以用这个来控制<strong>标记的格式</strong>，跟曲线可以不同颜色<ul>
 <li>color：整体一个颜色（曲线和点），color=’g’</li>
 <li>linestyle：线条风格，linestyle=’dashed’</li>
 <li>marker：标记风格，marker=’o’</li>
@@ -208,6 +204,11 @@
 <img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/markevery.PNG" alt="markevery"></li>
 </ul>
 </li>
+</ul>
+<h5 id="5-pyplot的中文显示"><a href="#5-pyplot的中文显示" class="headerlink" title="5. pyplot的中文显示"></a>5. pyplot的中文显示</h5><ul>
+<li>整体修改<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#设置字体为黑体</span></span><br><span class="line">matplotlib.rcParams[<span class="string">'font.family'</span>]=<span class="string">'SimHei'</span></span><br></pre></td></tr></table></figure>
+rcParams的属性<br><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/rcParams.PNG" alt="rcParams的属性"><br>中文字体的种类<br><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/%E5%AD%97%E4%BD%93%E7%A7%8D%E7%B1%BB.PNG" alt="中文字体的种类"></li>
+<li>部分修改：在有中文输出的地方添加属性fontproperties，在plt.plot()里用不了<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.xlabel(<span class="string">'横轴：时间'</span>,fontproperties=<span class="string">'SimHei'</span>,fontsize=<span class="number">20</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -302,11 +303,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/11/pandas%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/12/pandas%E5%BA%93%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          pandas处理日期
+          pandas库笔记
         
       </div>
     </a>
@@ -487,27 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="https://mp.weixin.qq.com/s/nLOCNim0XRjqs_2iLDMO8Q" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>TA-Lib(一)转自公众号“Python金融量化”</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+              <a href="https://mp.weixin.qq.com/s/L4TnfSclYEEqXOtVbhE3QA" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>TA-Lib(二)转自公众号“Python金融量化”</a>
             </li>
           
         </ul>
@@ -518,7 +503,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">个人学习笔记&lt;br&gt;供参考</div>
   	  	
     	</section>
     
