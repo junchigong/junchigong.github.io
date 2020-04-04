@@ -152,6 +152,158 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python量化（一）上证指数分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/04/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A%E8%AF%81%E6%8C%87%E6%95%B0%E5%88%86%E6%9E%90/">Python量化（一）上证指数分析</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/04/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A%E8%AF%81%E6%8C%87%E6%95%B0%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2020-04-04T02:34:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="Step1-引入package"><a href="#Step1-引入package" class="headerlink" title="Step1 引入package"></a>Step1 引入package</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> tushare <span class="keyword">as</span> ts</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置字体为黑体</span></span><br><span class="line">plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'SimHei'</span>]</span><br><span class="line"><span class="comment">#显示负号</span></span><br><span class="line">plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Step2-获取数据"><a href="#Step2-获取数据" class="headerlink" title="Step2 获取数据"></a>Step2 获取数据</h5><ul>
+<li>方法1：ts.get_k_date()</li>
+</ul>
+<p><em>这种方式在新版Tushare不用了，不需要写token</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#autype:复权选择，默认‘qfq’前复权</span></span><br><span class="line">sh = ts.get_k_data(code=<span class="string">'sh'</span>,ktype=<span class="string">'D'</span>,autype=<span class="string">'qfq'</span>,start=<span class="string">'1990-12-20'</span>)</span><br><span class="line">sh.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E9%87%8F%E5%8C%961.PNG" alt=""></p>
+<ul>
+<li>方法2：指数日线行情index_daily()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#000001是标准的上证指数代码，99999是软件为了避免与股票000001深发展重复</span></span><br><span class="line">pro = ts.pro_api(<span class="string">"******"</span>)</span><br><span class="line">df = pro.index_daily(ts_code=<span class="string">'000001.SH'</span>, start_date=<span class="string">'19901220'</span>)</span><br><span class="line">df.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E9%87%8F%E5%8C%962.PNG" alt=""></li>
+<li>方法3：通用行情接口<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = ts.pro_bar(ts_code=<span class="string">'000001.SH'</span>, asset=<span class="string">'I'</span>, start_date=<span class="string">'19901220'</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+方法2和3结果一样，与方法1相比，从<strong>时间</strong>上是<strong>倒序</strong>排列</li>
+</ul>
+<h5 id="Step3-换索引"><a href="#Step3-换索引" class="headerlink" title="Step3 换索引"></a>Step3 换索引</h5><p>对于pandas的数据结构，最好将<strong>索引设置为时间序列</strong>，方便后面可视化分析</p>
+<ul>
+<li>方法1：相当于将其中一列复制一次当索引<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sh.index = pd.to_datetime(sh.date)</span><br><span class="line">sh.head()</span><br></pre></td></tr></table></figure>
+<img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E7%B4%A2%E5%BC%951.PNG" alt=""></li>
+<li>方法2：提取其中一列作为索引，时间序列顺序不影响画图<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df.trade_date = pd.to_datetime(df.trade_date)</span><br><span class="line"><span class="comment">#df['trade_date'] = pd.to_datetime(df.trade_date)</span></span><br><span class="line"><span class="comment">#效果一样</span></span><br><span class="line"><span class="comment">#inplace=True修改原DateFrame</span></span><br><span class="line">df.set_index(<span class="string">'trade_date'</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+<img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E7%B4%A2%E5%BC%952.PNG" alt=""></li>
+</ul>
+<h5 id="Step4-画图"><a href="#Step4-画图" class="headerlink" title="Step4 画图"></a>Step4 画图</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sh[<span class="string">'close'</span>].plot(figsize=(<span class="number">12</span>,<span class="number">6</span>))</span><br><span class="line"><span class="comment">#df['close'].plot(figsize=(12,6))</span></span><br><span class="line"><span class="comment">#两个图一样</span></span><br><span class="line">plt.title(<span class="string">'上证指数1990-2020走势图'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'日期'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E8%B5%B0%E5%8A%BF%E5%9B%BE.PNG" alt=""></p>
+<h5 id="Step5-描述性统计"><a href="#Step5-描述性统计" class="headerlink" title="Step5 描述性统计"></a>Step5 描述性统计</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sh.describe().round(<span class="number">2</span>)</span><br><span class="line">``` </span><br><span class="line">![](https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%<span class="number">87</span>%<span class="number">8</span>F%E5%<span class="number">8</span>C%<span class="number">96</span>%EF%BC%<span class="number">88</span>%E4%B8%<span class="number">80</span>%EF%BC%<span class="number">89</span>/%E6%<span class="number">8</span>F%<span class="number">8</span>F%E8%BF%B0%E6%<span class="number">80</span>%A7%E7%BB%<span class="number">9</span>F%E8%AE%A1.PNG)</span><br><span class="line"></span><br><span class="line"><span class="comment">##### Step6 日收益率可视化</span></span><br><span class="line">```python</span><br><span class="line"><span class="comment">#表示当前元素与先前元素的相差百分比，可以指定period=n，表示当前元素与前n个元素的相差百分比</span></span><br><span class="line">sh[<span class="string">"日收益率"</span>] = sh[<span class="string">'close'</span>].pct_change()</span><br><span class="line">sh[<span class="string">"日收益率"</span>].loc[<span class="string">'2005-01-01'</span>:].plot(figsize=(<span class="number">12</span>,<span class="number">4</span>))</span><br><span class="line">plt.xlabel(<span class="string">'日期'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'收益率'</span>)</span><br><span class="line">plt.title(<span class="string">'2005-2020年上证指数日收益率'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/%E6%97%A5%E6%94%B6%E7%9B%8A%E7%8E%87.PNG" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/04/Python%E9%87%8F%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8A%E8%AF%81%E6%8C%87%E6%95%B0%E5%88%86%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-numpy库笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/24/numpy%E5%BA%93%E7%AC%94%E8%AE%B0/">numpy库笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/24/numpy%E5%BA%93%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-03-24T13:34:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Numpy(Numerical Python)是python数值计算最重要的基础包，基于Numpy的算法要比纯python快10到100倍且使用的内存更少</p>
+        
+          <a class="article-more-a" href="/2020/03/24/numpy%E5%BA%93%E7%AC%94%E8%AE%B0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/24/numpy%E5%BA%93%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-pandas库笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -240,7 +392,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Matplotlib库由各种可视化类构成，内部结构复杂，常用的matplotlib.pyplot是绘制各类可视化图形的命令字库，相当于快捷方式</p>
+        <p>Matplotlib库是高质量的二维数据可视化库，由各种可视化类构成，内部结构复杂，常用的matplotlib.pyplot是绘制各类可视化图形的命令字库，相当于快捷方式</p>
         
           <a class="article-more-a" href="/2020/03/05/matplotlib%E7%AC%94%E8%AE%B0/#more">more >></a>
         
