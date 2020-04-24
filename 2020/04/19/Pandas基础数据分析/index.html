@@ -8,13 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Pandas基础数据分析 | Gongjunchi&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="12import pandas as pd%matplotlib inline   123reviews &#x3D; pd.read_csv(&#39;winemag-data-130k-v2.csv&#39;,index_col&#x3D;0)pd.set_option(&#39;display.max_rows&#39;,5)reviews">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Pandas基础数据分析">
 <meta property="og:url" content="http://yoursite.com/2020/04/19/Pandas%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Gongjunchi&#39;s blog">
+<meta property="og:description" content="12import pandas as pd%matplotlib inline   123reviews &#x3D; pd.read_csv(&#39;winemag-data-130k-v2.csv&#39;,index_col&#x3D;0)pd.set_option(&#39;display.max_rows&#39;,5)reviews">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-19T12:35:09.000Z">
-<meta property="article:modified_time" content="2020-04-19T12:35:09.602Z">
+<meta property="article:modified_time" content="2020-04-24T03:31:10.767Z">
 <meta property="article:author" content="Gongjunchi">
 <meta name="twitter:card" content="summary">
   
@@ -172,10 +174,1452 @@
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+    <div id="toc-article" class="toc-article">
+        <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+        <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、Summary-Functions-and-Maps"><span class="toc-number">1.</span> <span class="toc-text">一、Summary Functions and Maps</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Summary-functions"><span class="toc-number">1.1.</span> <span class="toc-text">（一）Summary functions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-describe"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. describe()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-mean"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. mean()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-unique"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. unique()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-value-counts"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. value_counts()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Maps"><span class="toc-number">1.2.</span> <span class="toc-text">（二）Maps</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-map"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. map()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-apply"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. apply()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Grouping-and-Sorting"><span class="toc-number">2.</span> <span class="toc-text">二、Grouping and Sorting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Groupwise-analysis"><span class="toc-number">2.1.</span> <span class="toc-text">（一）Groupwise analysis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Multi-indexes"><span class="toc-number">2.2.</span> <span class="toc-text">（二）Multi-indexes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（三）Sorting"><span class="toc-number">2.3.</span> <span class="toc-text">（三）Sorting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、Data-Types-and-Missing-Values"><span class="toc-number">3.</span> <span class="toc-text">三、Data Types and Missing Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Dtypes"><span class="toc-number">3.1.</span> <span class="toc-text">（一）Dtypes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Missing-data"><span class="toc-number">3.2.</span> <span class="toc-text">（二）Missing data</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、Renaming-and-Combining"><span class="toc-number">4.</span> <span class="toc-text">四、Renaming and Combining</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Renaming"><span class="toc-number">4.1.</span> <span class="toc-text">（一）Renaming</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Combining"><span class="toc-number">4.2.</span> <span class="toc-text">（二）Combining</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+    function showToc(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:block");
+        show_toc_btn.setAttribute("style","display:none");
+        };
+    function showBtn(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:none");
+        show_toc_btn.setAttribute("style","display:block");
+        };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reviews = pd.read_csv(<span class="string">'winemag-data-130k-v2.csv'</span>,index_col=<span class="number">0</span>)</span><br><span class="line">pd.set_option(<span class="string">'display.max_rows'</span>,<span class="number">5</span>)</span><br><span class="line">reviews</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>points</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Italy</td>
+      <td>Aromas include tropical fruit, broom, brimston...</td>
+      <td>Vulkà Bianco</td>
+      <td>87</td>
+      <td>NaN</td>
+      <td>Sicily &amp; Sardinia</td>
+      <td>Etna</td>
+      <td>NaN</td>
+      <td>Kerin O’Keefe</td>
+      <td>@kerinokeefe</td>
+      <td>Nicosia 2013 Vulkà Bianco  (Etna)</td>
+      <td>White Blend</td>
+      <td>Nicosia</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Portugal</td>
+      <td>This is ripe and fruity, a wine that is smooth...</td>
+      <td>Avidagos</td>
+      <td>87</td>
+      <td>15.0</td>
+      <td>Douro</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Quinta dos Avidagos 2011 Avidagos Red (Douro)</td>
+      <td>Portuguese Red</td>
+      <td>Quinta dos Avidagos</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>129969</th>
+      <td>France</td>
+      <td>A dry style of Pinot Gris, this is crisp with ...</td>
+      <td>NaN</td>
+      <td>90</td>
+      <td>32.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Marcel Deiss 2012 Pinot Gris (Alsace)</td>
+      <td>Pinot Gris</td>
+      <td>Domaine Marcel Deiss</td>
+    </tr>
+    <tr>
+      <th>129970</th>
+      <td>France</td>
+      <td>Big, rich and off-dry, this is powered by inte...</td>
+      <td>Lieu-dit Harth Cuvée Caroline</td>
+      <td>90</td>
+      <td>21.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Schoffit 2012 Lieu-dit Harth Cuvée Car...</td>
+      <td>Gewürztraminer</td>
+      <td>Domaine Schoffit</td>
+    </tr>
+  </tbody>
+</table>
+<p>129971 rows × 13 columns</p>
+</div>
+
+
+
+<h3 id="一、Summary-Functions-and-Maps"><a href="#一、Summary-Functions-and-Maps" class="headerlink" title="一、Summary Functions and Maps"></a>一、Summary Functions and Maps</h3><h4 id="（一）Summary-functions"><a href="#（一）Summary-functions" class="headerlink" title="（一）Summary functions"></a>（一）Summary functions</h4><h5 id="1-describe"><a href="#1-describe" class="headerlink" title="1. describe()"></a>1. describe()</h5><ul>
+<li>所选列是数字</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.points.describe()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>count    129971.000000
+mean         88.447138
+             ...      
+75%          91.000000
+max         100.000000
+Name: points, Length: 8, dtype: float64</code></pre><ul>
+<li>所选列是字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.taster_name.describe()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>count         103727
+unique            19
+top       Roger Voss
+freq           25514
+Name: taster_name, dtype: object</code></pre><h5 id="2-mean"><a href="#2-mean" class="headerlink" title="2. mean()"></a>2. mean()</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.points.mean()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>88.44713820775404</code></pre><h5 id="3-unique"><a href="#3-unique" class="headerlink" title="3. unique()"></a>3. unique()</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.taster_name.unique()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([&apos;Kerin O’Keefe&apos;, &apos;Roger Voss&apos;, &apos;Paul Gregutt&apos;,
+       &apos;Alexander Peartree&apos;, &apos;Michael Schachner&apos;, &apos;Anna Lee C. Iijima&apos;,
+       &apos;Virginie Boone&apos;, &apos;Matt Kettmann&apos;, nan, &apos;Sean P. Sullivan&apos;,
+       &apos;Jim Gordon&apos;, &apos;Joe Czerwinski&apos;, &apos;Anne Krebiehl\xa0MW&apos;,
+       &apos;Lauren Buzzeo&apos;, &apos;Mike DeSimone&apos;, &apos;Jeff Jenssen&apos;,
+       &apos;Susan Kostrzewa&apos;, &apos;Carrie Dykes&apos;, &apos;Fiona Adams&apos;,
+       &apos;Christina Pickard&apos;], dtype=object)</code></pre><h5 id="4-value-counts"><a href="#4-value-counts" class="headerlink" title="4. value_counts()"></a>4. value_counts()</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.taster_name.value_counts()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Roger Voss           25514
+Michael Schachner    15134
+                     ...  
+Fiona Adams             27
+Christina Pickard        6
+Name: taster_name, Length: 19, dtype: int64</code></pre><h4 id="（二）Maps"><a href="#（二）Maps" class="headerlink" title="（二）Maps"></a>（二）Maps</h4><blockquote>
+<p>map()和apply()返回的是新DataFrame/Series，不改变原来的DataFrame/Series</p>
+</blockquote>
+<h5 id="1-map"><a href="#1-map" class="headerlink" title="1. map()"></a>1. map()</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reviews_points_mean = reviews.points.mean()</span><br><span class="line">reviews.points.map(<span class="keyword">lambda</span> p: p - reviews_points_mean)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0        -1.447138
+1        -1.447138
+            ...   
+129969    1.552862
+129970    1.552862
+Name: points, Length: 129971, dtype: float64</code></pre><h5 id="2-apply"><a href="#2-apply" class="headerlink" title="2. apply()"></a>2. apply()</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remean_points</span><span class="params">(row)</span>:</span></span><br><span class="line">    row.points = row.points - reviews_points_mean</span><br><span class="line">    <span class="keyword">return</span> row</span><br><span class="line">reviews.apply(remean_points,axis=<span class="string">'columns'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>points</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Italy</td>
+      <td>Aromas include tropical fruit, broom, brimston...</td>
+      <td>Vulkà Bianco</td>
+      <td>-1.447138</td>
+      <td>NaN</td>
+      <td>Sicily &amp; Sardinia</td>
+      <td>Etna</td>
+      <td>NaN</td>
+      <td>Kerin O’Keefe</td>
+      <td>@kerinokeefe</td>
+      <td>Nicosia 2013 Vulkà Bianco  (Etna)</td>
+      <td>White Blend</td>
+      <td>Nicosia</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Portugal</td>
+      <td>This is ripe and fruity, a wine that is smooth...</td>
+      <td>Avidagos</td>
+      <td>-1.447138</td>
+      <td>15.0</td>
+      <td>Douro</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Quinta dos Avidagos 2011 Avidagos Red (Douro)</td>
+      <td>Portuguese Red</td>
+      <td>Quinta dos Avidagos</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>129969</th>
+      <td>France</td>
+      <td>A dry style of Pinot Gris, this is crisp with ...</td>
+      <td>NaN</td>
+      <td>1.552862</td>
+      <td>32.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Marcel Deiss 2012 Pinot Gris (Alsace)</td>
+      <td>Pinot Gris</td>
+      <td>Domaine Marcel Deiss</td>
+    </tr>
+    <tr>
+      <th>129970</th>
+      <td>France</td>
+      <td>Big, rich and off-dry, this is powered by inte...</td>
+      <td>Lieu-dit Harth Cuvée Caroline</td>
+      <td>1.552862</td>
+      <td>21.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Schoffit 2012 Lieu-dit Harth Cuvée Car...</td>
+      <td>Gewürztraminer</td>
+      <td>Domaine Schoffit</td>
+    </tr>
+  </tbody>
+</table>
+<p>129971 rows × 13 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#可以发现原DataFrame未发生改变</span></span><br><span class="line">reviews.head(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>points</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Italy</td>
+      <td>Aromas include tropical fruit, broom, brimston...</td>
+      <td>Vulkà Bianco</td>
+      <td>87</td>
+      <td>NaN</td>
+      <td>Sicily &amp; Sardinia</td>
+      <td>Etna</td>
+      <td>NaN</td>
+      <td>Kerin O’Keefe</td>
+      <td>@kerinokeefe</td>
+      <td>Nicosia 2013 Vulkà Bianco  (Etna)</td>
+      <td>White Blend</td>
+      <td>Nicosia</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ul>
+<li>Pandas还提供了其他类似map()和apply()的操作，执行速度更快但缺乏灵活性</li>
+<li>These operators are faster than map() or apply() because they uses speed ups built into pandas. All of the standard Python operators (&gt;, &lt;, ==, and so on) work in this manner.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reviews_points_mean = reviews.points.mean()</span><br><span class="line">reviews.points - reviews_points_mean</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0        -1.447138
+1        -1.447138
+            ...   
+129969    1.552862
+129970    1.552862
+Name: points, Length: 129971, dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.country + <span class="string">"-"</span> + reviews.region_1</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0            Italy-Etna
+1                   NaN
+              ...      
+129969    France-Alsace
+129970    France-Alsace
+Length: 129971, dtype: object</code></pre><h3 id="二、Grouping-and-Sorting"><a href="#二、Grouping-and-Sorting" class="headerlink" title="二、Grouping and Sorting"></a>二、Grouping and Sorting</h3><h4 id="（一）Groupwise-analysis"><a href="#（一）Groupwise-analysis" class="headerlink" title="（一）Groupwise analysis"></a>（一）Groupwise analysis</h4><blockquote>
+<p>前面使用的value_counts()是groupby()的捷径</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.groupby(<span class="string">'points'</span>).points.count()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>points
+80     397
+81     692
+      ... 
+99      33
+100     19
+Name: points, Length: 21, dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.groupby(<span class="string">'points'</span>).price.min()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>points
+80      5.0
+81      5.0
+       ... 
+99     44.0
+100    80.0
+Name: price, Length: 21, dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.groupby(<span class="string">'winery'</span>).apply(<span class="keyword">lambda</span> df: df.title.iloc[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>winery
+1+1=3                          1+1=3 NV Rosé Sparkling (Cava)
+10 Knots                 10 Knots 2010 Viognier (Paso Robles)
+                                  ...                        
+àMaurice    àMaurice 2013 Fred Estate Syrah (Walla Walla V...
+Štoka                         Štoka 2009 Izbrani Teran (Kras)
+Length: 16757, dtype: object</code></pre><ul>
+<li>生成数据集的简单统计摘要</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.groupby(<span class="string">'country'</span>).price.agg([len,min,max])</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>len</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Argentina</th>
+      <td>3800.0</td>
+      <td>4.0</td>
+      <td>230.0</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>2.0</td>
+      <td>14.0</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Ukraine</th>
+      <td>14.0</td>
+      <td>6.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>Uruguay</th>
+      <td>109.0</td>
+      <td>10.0</td>
+      <td>130.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>43 rows × 3 columns</p>
+</div>
+
+
+
+<h4 id="（二）Multi-indexes"><a href="#（二）Multi-indexes" class="headerlink" title="（二）Multi-indexes"></a>（二）Multi-indexes</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed = reviews.groupby([<span class="string">'country'</span>,<span class="string">'province'</span>]).description.agg([len])</span><br><span class="line">countries_reviewed</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>len</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th>province</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Argentina</th>
+      <th>Mendoza Province</th>
+      <td>3264</td>
+    </tr>
+    <tr>
+      <th>Other</th>
+      <td>536</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Uruguay</th>
+      <th>San Jose</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Uruguay</th>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 1 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mi = countries_reviewed.index</span><br><span class="line">type(mi)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>pandas.core.indexes.multi.MultiIndex</code></pre><ul>
+<li>通过reset_index()把多索引降成单索引</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed.reset_index()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Argentina</td>
+      <td>Mendoza Province</td>
+      <td>3264</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Argentina</td>
+      <td>Other</td>
+      <td>536</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>423</th>
+      <td>Uruguay</td>
+      <td>San Jose</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>424</th>
+      <td>Uruguay</td>
+      <td>Uruguay</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 3 columns</p>
+</div>
+
+
+
+<h4 id="（三）Sorting"><a href="#（三）Sorting" class="headerlink" title="（三）Sorting"></a>（三）Sorting</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed = countries_reviewed.reset_index()</span><br><span class="line">countries_reviewed.sort_values(by=<span class="string">'len'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>179</th>
+      <td>Greece</td>
+      <td>Muscat of Kefallonian</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>192</th>
+      <td>Greece</td>
+      <td>Sterea Ellada</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>415</th>
+      <td>US</td>
+      <td>Washington</td>
+      <td>8639</td>
+    </tr>
+    <tr>
+      <th>392</th>
+      <td>US</td>
+      <td>California</td>
+      <td>36247</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 3 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed.sort_values(by=<span class="string">'len'</span>,ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>392</th>
+      <td>US</td>
+      <td>California</td>
+      <td>36247</td>
+    </tr>
+    <tr>
+      <th>415</th>
+      <td>US</td>
+      <td>Washington</td>
+      <td>8639</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>Chile</td>
+      <td>Coelemu</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>Greece</td>
+      <td>Beotia</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 3 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed.sort_index()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Argentina</td>
+      <td>Mendoza Province</td>
+      <td>3264</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Argentina</td>
+      <td>Other</td>
+      <td>536</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>423</th>
+      <td>Uruguay</td>
+      <td>San Jose</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>424</th>
+      <td>Uruguay</td>
+      <td>Uruguay</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 3 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countries_reviewed.sort_values(by=[<span class="string">'country'</span>,<span class="string">'len'</span>])</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Argentina</td>
+      <td>Other</td>
+      <td>536</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Argentina</td>
+      <td>Mendoza Province</td>
+      <td>3264</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>424</th>
+      <td>Uruguay</td>
+      <td>Uruguay</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>419</th>
+      <td>Uruguay</td>
+      <td>Canelones</td>
+      <td>43</td>
+    </tr>
+  </tbody>
+</table>
+<p>425 rows × 3 columns</p>
+</div>
+
+
+
+<h3 id="三、Data-Types-and-Missing-Values"><a href="#三、Data-Types-and-Missing-Values" class="headerlink" title="三、Data Types and Missing Values"></a>三、Data Types and Missing Values</h3><h4 id="（一）Dtypes"><a href="#（一）Dtypes" class="headerlink" title="（一）Dtypes"></a>（一）Dtypes</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.price.dtype</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>dtype(&apos;float64&apos;)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.dtypes</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>country        object
+description    object
+                ...  
+variety        object
+winery         object
+Length: 13, dtype: object</code></pre><blockquote>
+<p>可以看出string被处理为object类型</p>
+</blockquote>
+<ul>
+<li>astype()类型转换</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.points.astype(<span class="string">'float64'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0         87.0
+1         87.0
+          ... 
+129969    90.0
+129970    90.0
+Name: points, Length: 129971, dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.index.dtype</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>dtype(&apos;int64&apos;)</code></pre><h4 id="（二）Missing-data"><a href="#（二）Missing-data" class="headerlink" title="（二）Missing data"></a>（二）Missing data</h4><ul>
+<li>Nan:”Not a Number”</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews[pd.isnull(reviews.country)]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>points</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>913</th>
+      <td>NaN</td>
+      <td>Amber in color, this wine has aromas of peach ...</td>
+      <td>Asureti Valley</td>
+      <td>87</td>
+      <td>30.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Mike DeSimone</td>
+      <td>@worldwineguys</td>
+      <td>Gotsa Family Wines 2014 Asureti Valley Chinuri</td>
+      <td>Chinuri</td>
+      <td>Gotsa Family Wines</td>
+    </tr>
+    <tr>
+      <th>3131</th>
+      <td>NaN</td>
+      <td>Soft, fruity and juicy, this is a pleasant, si...</td>
+      <td>Partager</td>
+      <td>83</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Barton &amp; Guestier NV Partager Red</td>
+      <td>Red Blend</td>
+      <td>Barton &amp; Guestier</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>129590</th>
+      <td>NaN</td>
+      <td>A blend of 60% Syrah, 30% Cabernet Sauvignon a...</td>
+      <td>Shah</td>
+      <td>90</td>
+      <td>30.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Mike DeSimone</td>
+      <td>@worldwineguys</td>
+      <td>Büyülübağ 2012 Shah Red</td>
+      <td>Red Blend</td>
+      <td>Büyülübağ</td>
+    </tr>
+    <tr>
+      <th>129900</th>
+      <td>NaN</td>
+      <td>This wine offers a delightful bouquet of black...</td>
+      <td>NaN</td>
+      <td>91</td>
+      <td>32.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Mike DeSimone</td>
+      <td>@worldwineguys</td>
+      <td>Psagot 2014 Merlot</td>
+      <td>Merlot</td>
+      <td>Psagot</td>
+    </tr>
+  </tbody>
+</table>
+<p>63 rows × 13 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.region_2.fillna(<span class="string">'Unknown'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0         Unknown
+1         Unknown
+           ...   
+129969    Unknown
+129970    Unknown
+Name: region_2, Length: 129971, dtype: object</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.taster_twitter_handle.replace(<span class="string">"@kerinokeefe"</span>,<span class="string">"@kerino"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0            @kerino
+1         @vossroger
+             ...    
+129969    @vossroger
+129970    @vossroger
+Name: taster_twitter_handle, Length: 129971, dtype: object</code></pre><h3 id="四、Renaming-and-Combining"><a href="#四、Renaming-and-Combining" class="headerlink" title="四、Renaming and Combining"></a>四、Renaming and Combining</h3><h4 id="（一）Renaming"><a href="#（一）Renaming" class="headerlink" title="（一）Renaming"></a>（一）Renaming</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.rename(columns=&#123;<span class="string">'points'</span>:<span class="string">'score'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>score</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Italy</td>
+      <td>Aromas include tropical fruit, broom, brimston...</td>
+      <td>Vulkà Bianco</td>
+      <td>87</td>
+      <td>NaN</td>
+      <td>Sicily &amp; Sardinia</td>
+      <td>Etna</td>
+      <td>NaN</td>
+      <td>Kerin O’Keefe</td>
+      <td>@kerinokeefe</td>
+      <td>Nicosia 2013 Vulkà Bianco  (Etna)</td>
+      <td>White Blend</td>
+      <td>Nicosia</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Portugal</td>
+      <td>This is ripe and fruity, a wine that is smooth...</td>
+      <td>Avidagos</td>
+      <td>87</td>
+      <td>15.0</td>
+      <td>Douro</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Quinta dos Avidagos 2011 Avidagos Red (Douro)</td>
+      <td>Portuguese Red</td>
+      <td>Quinta dos Avidagos</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>129969</th>
+      <td>France</td>
+      <td>A dry style of Pinot Gris, this is crisp with ...</td>
+      <td>NaN</td>
+      <td>90</td>
+      <td>32.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Marcel Deiss 2012 Pinot Gris (Alsace)</td>
+      <td>Pinot Gris</td>
+      <td>Domaine Marcel Deiss</td>
+    </tr>
+    <tr>
+      <th>129970</th>
+      <td>France</td>
+      <td>Big, rich and off-dry, this is powered by inte...</td>
+      <td>Lieu-dit Harth Cuvée Caroline</td>
+      <td>90</td>
+      <td>21.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Schoffit 2012 Lieu-dit Harth Cuvée Car...</td>
+      <td>Gewürztraminer</td>
+      <td>Domaine Schoffit</td>
+    </tr>
+  </tbody>
+</table>
+<p>129971 rows × 13 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reviews.rename(index=&#123;<span class="number">0</span>:<span class="string">'firstEntry'</span>,<span class="number">1</span>:<span class="string">'secondEntry'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>description</th>
+      <th>designation</th>
+      <th>points</th>
+      <th>price</th>
+      <th>province</th>
+      <th>region_1</th>
+      <th>region_2</th>
+      <th>taster_name</th>
+      <th>taster_twitter_handle</th>
+      <th>title</th>
+      <th>variety</th>
+      <th>winery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>firstEntry</th>
+      <td>Italy</td>
+      <td>Aromas include tropical fruit, broom, brimston...</td>
+      <td>Vulkà Bianco</td>
+      <td>87</td>
+      <td>NaN</td>
+      <td>Sicily &amp; Sardinia</td>
+      <td>Etna</td>
+      <td>NaN</td>
+      <td>Kerin O’Keefe</td>
+      <td>@kerinokeefe</td>
+      <td>Nicosia 2013 Vulkà Bianco  (Etna)</td>
+      <td>White Blend</td>
+      <td>Nicosia</td>
+    </tr>
+    <tr>
+      <th>secondEntry</th>
+      <td>Portugal</td>
+      <td>This is ripe and fruity, a wine that is smooth...</td>
+      <td>Avidagos</td>
+      <td>87</td>
+      <td>15.0</td>
+      <td>Douro</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Quinta dos Avidagos 2011 Avidagos Red (Douro)</td>
+      <td>Portuguese Red</td>
+      <td>Quinta dos Avidagos</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>129969</th>
+      <td>France</td>
+      <td>A dry style of Pinot Gris, this is crisp with ...</td>
+      <td>NaN</td>
+      <td>90</td>
+      <td>32.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Marcel Deiss 2012 Pinot Gris (Alsace)</td>
+      <td>Pinot Gris</td>
+      <td>Domaine Marcel Deiss</td>
+    </tr>
+    <tr>
+      <th>129970</th>
+      <td>France</td>
+      <td>Big, rich and off-dry, this is powered by inte...</td>
+      <td>Lieu-dit Harth Cuvée Caroline</td>
+      <td>90</td>
+      <td>21.0</td>
+      <td>Alsace</td>
+      <td>Alsace</td>
+      <td>NaN</td>
+      <td>Roger Voss</td>
+      <td>@vossroger</td>
+      <td>Domaine Schoffit 2012 Lieu-dit Harth Cuvée Car...</td>
+      <td>Gewürztraminer</td>
+      <td>Domaine Schoffit</td>
+    </tr>
+  </tbody>
+</table>
+<p>129971 rows × 13 columns</p>
+</div>
+
+
+
+<h4 id="（二）Combining"><a href="#（二）Combining" class="headerlink" title="（二）Combining"></a>（二）Combining</h4><ul>
+<li>concat()</li>
+<li>join()</li>
+<li>merge()该函数的功能join()能更加简单实现，因此只用前两个即可</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pd1 = pd.DataFrame(&#123;<span class="string">'number'</span>:[<span class="string">'101'</span>,<span class="string">'102'</span>,<span class="string">'103'</span>],<span class="string">'name'</span>:[<span class="string">'张三'</span>,<span class="string">'李冬'</span>,<span class="string">'王五'</span>],<span class="string">'gender'</span>:[<span class="string">'男'</span>,<span class="string">'女'</span>,<span class="string">'男'</span>]&#125;)</span><br><span class="line">pd2 = pd.DataFrame(&#123;<span class="string">'number'</span>:[<span class="string">'201'</span>,<span class="string">'202'</span>,<span class="string">'203'</span>],<span class="string">'name'</span>:[<span class="string">'张霞'</span>,<span class="string">'李明'</span>,<span class="string">'王强'</span>],<span class="string">'gender'</span>:[<span class="string">'女'</span>,<span class="string">'男'</span>,<span class="string">'男'</span>]&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd = pd.concat([pd1,pd2])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.set_index(<span class="string">'number'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>gender</th>
+    </tr>
+    <tr>
+      <th>number</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>101</th>
+      <td>张三</td>
+      <td>男</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>李冬</td>
+      <td>女</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>李明</td>
+      <td>男</td>
+    </tr>
+    <tr>
+      <th>203</th>
+      <td>王强</td>
+      <td>男</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 2 columns</p>
+</div>
       
 
       
@@ -298,6 +1742,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、Summary-Functions-and-Maps"><span class="toc-number">1.</span> <span class="toc-text">一、Summary Functions and Maps</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Summary-functions"><span class="toc-number">1.1.</span> <span class="toc-text">（一）Summary functions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-describe"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. describe()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-mean"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. mean()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-unique"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. unique()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-value-counts"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. value_counts()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Maps"><span class="toc-number">1.2.</span> <span class="toc-text">（二）Maps</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-map"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. map()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-apply"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. apply()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Grouping-and-Sorting"><span class="toc-number">2.</span> <span class="toc-text">二、Grouping and Sorting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Groupwise-analysis"><span class="toc-number">2.1.</span> <span class="toc-text">（一）Groupwise analysis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Multi-indexes"><span class="toc-number">2.2.</span> <span class="toc-text">（二）Multi-indexes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（三）Sorting"><span class="toc-number">2.3.</span> <span class="toc-text">（三）Sorting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、Data-Types-and-Missing-Values"><span class="toc-number">3.</span> <span class="toc-text">三、Data Types and Missing Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Dtypes"><span class="toc-number">3.1.</span> <span class="toc-text">（一）Dtypes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Missing-data"><span class="toc-number">3.2.</span> <span class="toc-text">（二）Missing data</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、Renaming-and-Combining"><span class="toc-number">4.</span> <span class="toc-text">四、Renaming and Combining</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（一）Renaming"><span class="toc-number">4.1.</span> <span class="toc-text">（一）Renaming</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（二）Combining"><span class="toc-number">4.2.</span> <span class="toc-text">（二）Combining</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
