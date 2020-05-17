@@ -152,6 +152,855 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-常用的数据清洗方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/17/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%96%B9%E6%B3%95/">常用的数据清洗方法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/17/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-05-17T08:36:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-17</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>常用的数据处理方法</p>
+<ul>
+<li>重复值</li>
+<li>缺失值</li>
+<li>异常值<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="（1）重复观测处理"><a href="#（1）重复观测处理" class="headerlink" title="（1）重复观测处理"></a>（1）重复观测处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_excel(<span class="string">'data_test04.xlsx'</span>)</span><br><span class="line"><span class="comment">#检测重复项</span></span><br><span class="line">any(df.duplicated())</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>True</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除重复项</span></span><br><span class="line">df.drop_duplicates(inplace=<span class="literal">True</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>appcategory</th>
+      <th>appname</th>
+      <th>comments</th>
+      <th>install</th>
+      <th>love</th>
+      <th>size</th>
+      <th>update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>网上购物-商城-团购-优惠-快递</td>
+      <td>每日优鲜</td>
+      <td>1297</td>
+      <td>204.7万</td>
+      <td>89.00%</td>
+      <td>15.16MB</td>
+      <td>2017年10月11日</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>网上购物-商城</td>
+      <td>苏宁易购</td>
+      <td>577</td>
+      <td>7996.8万</td>
+      <td>73.00%</td>
+      <td>58.9MB</td>
+      <td>2017年09月21日</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>网上购物-商城-优惠</td>
+      <td>唯品会</td>
+      <td>2543</td>
+      <td>7090.1万</td>
+      <td>86.00%</td>
+      <td>41.43MB</td>
+      <td>2017年10月13日</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>网上购物-商城</td>
+      <td>拼多多</td>
+      <td>1921</td>
+      <td>3841.9万</td>
+      <td>95.00%</td>
+      <td>13.35MB</td>
+      <td>2017年10月11日</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>网上购物-商城-优惠</td>
+      <td>寺库奢侈品</td>
+      <td>1964</td>
+      <td>175.4万</td>
+      <td>100.00%</td>
+      <td>17.21MB</td>
+      <td>2017年09月30日</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>网上购物-商城</td>
+      <td>淘宝</td>
+      <td>14244</td>
+      <td>4.6亿</td>
+      <td>68.00%</td>
+      <td>73.78MB</td>
+      <td>2017年10月13日</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>网上购物-商城-团购-优惠</td>
+      <td>当当</td>
+      <td>134</td>
+      <td>1615.3万</td>
+      <td>61.00%</td>
+      <td>37.01MB</td>
+      <td>2017年10月17日</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="（2）缺失值处理"><a href="#（2）缺失值处理" class="headerlink" title="（2）缺失值处理"></a>（2）缺失值处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_excel(<span class="string">'data_test05.xlsx'</span>)</span><br><span class="line">any(df.isnull())</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>True</code></pre><ul>
+<li>删除法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除有缺失值的行</span></span><br><span class="line">df.dropna()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>uid</th>
+      <th>regit_date</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>81200457</td>
+      <td>2016-10-30</td>
+      <td>M</td>
+      <td>23.0</td>
+      <td>6500.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81201135</td>
+      <td>2016-11-08</td>
+      <td>M</td>
+      <td>27.0</td>
+      <td>10300.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84639281</td>
+      <td>2017-04-17</td>
+      <td>M</td>
+      <td>26.0</td>
+      <td>6000.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>63881943</td>
+      <td>2015-10-07</td>
+      <td>M</td>
+      <td>21.0</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>77638351</td>
+      <td>2016-07-12</td>
+      <td>M</td>
+      <td>25.0</td>
+      <td>18000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除缺失值最集中的变量</span></span><br><span class="line">df.drop(<span class="string">'age'</span>,axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>uid</th>
+      <th>regit_date</th>
+      <th>gender</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>81200457</td>
+      <td>2016-10-30</td>
+      <td>M</td>
+      <td>6500.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81201135</td>
+      <td>2016-11-08</td>
+      <td>M</td>
+      <td>10300.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>80043782</td>
+      <td>2016-10-13</td>
+      <td>F</td>
+      <td>13500.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84639281</td>
+      <td>2017-04-17</td>
+      <td>M</td>
+      <td>6000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>73499801</td>
+      <td>2016-03-21</td>
+      <td>NaN</td>
+      <td>4500.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>72399510</td>
+      <td>2016-01-18</td>
+      <td>M</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>63881943</td>
+      <td>2015-10-07</td>
+      <td>M</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>35442690</td>
+      <td>2015-04-10</td>
+      <td>F</td>
+      <td>5800.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>77638351</td>
+      <td>2016-07-12</td>
+      <td>M</td>
+      <td>18000.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>85200189</td>
+      <td>2017-05-18</td>
+      <td>M</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ul>
+<li>填充法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#前向填充</span></span><br><span class="line">df.fillna(method=<span class="string">'ffill'</span>)</span><br><span class="line"><span class="comment">#后向填充</span></span><br><span class="line">df.fillna(method=<span class="string">'bfill'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>uid</th>
+      <th>regit_date</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>81200457</td>
+      <td>2016-10-30</td>
+      <td>M</td>
+      <td>23.0</td>
+      <td>6500.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81201135</td>
+      <td>2016-11-08</td>
+      <td>M</td>
+      <td>27.0</td>
+      <td>10300.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>80043782</td>
+      <td>2016-10-13</td>
+      <td>F</td>
+      <td>26.0</td>
+      <td>13500.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84639281</td>
+      <td>2017-04-17</td>
+      <td>M</td>
+      <td>26.0</td>
+      <td>6000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>73499801</td>
+      <td>2016-03-21</td>
+      <td>M</td>
+      <td>19.0</td>
+      <td>4500.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>72399510</td>
+      <td>2016-01-18</td>
+      <td>M</td>
+      <td>19.0</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>63881943</td>
+      <td>2015-10-07</td>
+      <td>M</td>
+      <td>21.0</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>35442690</td>
+      <td>2015-04-10</td>
+      <td>F</td>
+      <td>25.0</td>
+      <td>5800.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>77638351</td>
+      <td>2016-07-12</td>
+      <td>M</td>
+      <td>25.0</td>
+      <td>18000.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>85200189</td>
+      <td>2017-05-18</td>
+      <td>M</td>
+      <td>22.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常数填充</span></span><br><span class="line">df.fillna(value=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>uid</th>
+      <th>regit_date</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>81200457</td>
+      <td>2016-10-30</td>
+      <td>M</td>
+      <td>23.0</td>
+      <td>6500.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81201135</td>
+      <td>2016-11-08</td>
+      <td>M</td>
+      <td>27.0</td>
+      <td>10300.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>80043782</td>
+      <td>2016-10-13</td>
+      <td>F</td>
+      <td>0.0</td>
+      <td>13500.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84639281</td>
+      <td>2017-04-17</td>
+      <td>M</td>
+      <td>26.0</td>
+      <td>6000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>73499801</td>
+      <td>2016-03-21</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>4500.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>72399510</td>
+      <td>2016-01-18</td>
+      <td>M</td>
+      <td>19.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>63881943</td>
+      <td>2015-10-07</td>
+      <td>M</td>
+      <td>21.0</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>35442690</td>
+      <td>2015-04-10</td>
+      <td>F</td>
+      <td>0.0</td>
+      <td>5800.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>77638351</td>
+      <td>2016-07-12</td>
+      <td>M</td>
+      <td>25.0</td>
+      <td>18000.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>85200189</td>
+      <td>2017-05-18</td>
+      <td>M</td>
+      <td>22.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#统计值填充</span></span><br><span class="line"><span class="comment">#性别用众数，年龄用均值，收入用中位数</span></span><br><span class="line">df.fillna(value=&#123;<span class="string">'gender'</span>:df.gender.mode()[<span class="number">0</span>],<span class="comment">#df.gender.mode() Series</span></span><br><span class="line">                <span class="string">'age'</span>:df.age.mean(),</span><br><span class="line">                <span class="string">'income'</span>:df.income.median()&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>uid</th>
+      <th>regit_date</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>81200457</td>
+      <td>2016-10-30</td>
+      <td>M</td>
+      <td>23.000000</td>
+      <td>6500.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81201135</td>
+      <td>2016-11-08</td>
+      <td>M</td>
+      <td>27.000000</td>
+      <td>10300.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>80043782</td>
+      <td>2016-10-13</td>
+      <td>F</td>
+      <td>23.285714</td>
+      <td>13500.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84639281</td>
+      <td>2017-04-17</td>
+      <td>M</td>
+      <td>26.000000</td>
+      <td>6000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>73499801</td>
+      <td>2016-03-21</td>
+      <td>M</td>
+      <td>23.285714</td>
+      <td>4500.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>72399510</td>
+      <td>2016-01-18</td>
+      <td>M</td>
+      <td>19.000000</td>
+      <td>8250.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>63881943</td>
+      <td>2015-10-07</td>
+      <td>M</td>
+      <td>21.000000</td>
+      <td>10000.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>35442690</td>
+      <td>2015-04-10</td>
+      <td>F</td>
+      <td>23.285714</td>
+      <td>5800.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>77638351</td>
+      <td>2016-07-12</td>
+      <td>M</td>
+      <td>25.000000</td>
+      <td>18000.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>85200189</td>
+      <td>2017-05-18</td>
+      <td>M</td>
+      <td>22.000000</td>
+      <td>8250.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="（3）异常值处理"><a href="#（3）异常值处理" class="headerlink" title="（3）异常值处理"></a>（3）异常值处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sunspots = pd.read_csv(<span class="string">'sunspots.csv'</span>)</span><br><span class="line">sunspots.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1700</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1701</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1702</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1703</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1704</td>
+      <td>36.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ol>
+<li>异常值检测<ul>
+<li>标准差法</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xbar = sunspots.counts.mean()</span><br><span class="line">xstd = sunspots.counts.std()</span><br><span class="line">print(<span class="string">'上限检测：\n'</span>,any(sunspots.counts &gt; xbar + <span class="number">2</span> * xstd))</span><br><span class="line">print(<span class="string">'下限检测：\n'</span>,any(sunspots.counts &lt; xbar - <span class="number">2</span> * xstd))</span><br></pre></td></tr></table></figure>
+
+<pre><code>上限检测：
+ True
+下限检测：
+ False</code></pre><ol>
+<li>异常值检测<ul>
+<li>箱线图法</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Q1 = sunspots.counts.quantile(q=<span class="number">0.25</span>)</span><br><span class="line">Q3 = sunspots.counts.quantile(q=<span class="number">0.75</span>)</span><br><span class="line">IQR = Q3 - Q1</span><br><span class="line">print(<span class="string">'上限检测：\n'</span>,any(sunspots.counts &gt; Q3 + <span class="number">1.5</span> * IQR))</span><br><span class="line">print(<span class="string">'下限检测：\n'</span>,any(sunspots.counts &lt; Q1 - <span class="number">1.5</span> * IQR))</span><br></pre></td></tr></table></figure>
+
+<pre><code>上限检测：
+ True
+下限检测：
+ False</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="comment">#设置绘图风格</span></span><br><span class="line">plt.style.use(<span class="string">'ggplot'</span>)</span><br><span class="line"><span class="comment">#绘制直方图</span></span><br><span class="line">sunspots.counts.plot(kind=<span class="string">'hist'</span>,bins=<span class="number">30</span>,normed=<span class="literal">True</span>)</span><br><span class="line">sunspots.counts.plot(kind=<span class="string">'kde'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>D:\Anaconda\lib\site-packages\matplotlib\axes\_axes.py:6571: UserWarning: The &apos;normed&apos; kwarg is deprecated, and has been replaced by the &apos;density&apos; kwarg.
+  warnings.warn(&quot;The &apos;normed&apos; kwarg is deprecated, and has been &quot;</code></pre><p><img src="https://mybloghexo.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%96%B9%E6%B3%95/%E7%AE%B1%E7%BA%BF%E5%9B%BE.png" alt="png"></p>
+<ol start="2">
+<li>异常值处理</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sunspots.counts.describe()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>count    289.000000
+mean      48.613495
+std       39.474103
+min        0.000000
+25%       15.600000
+50%       39.000000
+75%       68.900000
+max      190.200000
+Name: counts, dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置异常值判别上限</span></span><br><span class="line">UL = Q3 + <span class="number">1.5</span> * IQR</span><br><span class="line"><span class="comment">#找出低于判别上限的最大值</span></span><br><span class="line">replace_value = sunspots.counts[sunspots.counts &lt; UL].max()</span><br><span class="line"><span class="comment">#替换异常值</span></span><br><span class="line">sunspots.counts[sunspots.counts &gt; UL] = replace_value</span><br><span class="line">sunspots.counts.describe()</span><br></pre></td></tr></table></figure>
+
+<pre><code>D:\Anaconda\lib\site-packages\ipykernel_launcher.py:6: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+
+
+
+
+
+
+count    289.000000
+mean      48.066090
+std       37.918895
+min        0.000000
+25%       15.600000
+50%       39.000000
+75%       68.900000
+max      141.700000
+Name: counts, dtype: float64</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/17/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python小点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -750,74 +1599,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/03/01/Tushare%E8%8E%B7%E5%8F%96%E6%97%A5%E7%BA%BF%E8%A1%8C%E6%83%85/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-k线图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/">k线图</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/" class="archive-article-date">
-  	<time datetime="2020-03-01T02:40:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-01</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本篇继续使用Tushare提供的数据接口，在获取数据后借助mpl_finance库的candlestick_ohlc()、matplotlib.pyplot库画出股价的K线图及成交量图</p>
-        
-          <a class="article-more-a" href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/01/k%E7%BA%BF%E5%9B%BE/">展开全文 >></a>
         </p>
       
 
